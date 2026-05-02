@@ -1,0 +1,17 @@
+model Build {
+  id         String @id @default(cuid())
+  name       String
+  totalPrice Int    @default(0)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  components BuildComponent[]
+
+  isPublic Boolean @default(false)
+
+  likes Like[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}

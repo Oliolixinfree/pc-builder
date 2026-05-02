@@ -1,0 +1,13 @@
+model Component {
+  id    String        @id @default(cuid())
+  type  ComponentType
+  name  String
+  price Int
+
+  socket String?
+
+  buildComponents BuildComponent[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}

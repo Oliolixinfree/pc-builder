@@ -1,0 +1,10 @@
+enum ComponentType {
+  cpu
+  gpu
+  ram
+  ssd
+  motherboard
+  psu
+  case
+  cooler
+}
