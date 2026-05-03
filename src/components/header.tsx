@@ -18,7 +18,7 @@ export async function Header() {
 							</Link>
 						</TypographyH3>
 					</div>
-					<nav className="min-w-0 flex-1">
+					<nav className="min-w-0 flex-1 min-h-10">
 						<HeaderNav session={session} />
 					</nav>
 				</div>

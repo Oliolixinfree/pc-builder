@@ -33,7 +33,7 @@ export function HeaderNav({ session }: Props) {
 	if (!session?.user) {
 		return (
 			<div className="flex justify-end">
-				<Button variant="ghost">
+				<Button variant="secondary">
 					<Link href={'/login'}>Login</Link>
 				</Button>
 			</div>
@@ -58,6 +58,7 @@ export function HeaderNav({ session }: Props) {
 								<Link
 									href={tab.href}
 									prefetch={true}
+									className="flex w-full h-full items-center"
 								>
 									{tab.label}
 								</Link>
