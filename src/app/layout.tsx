@@ -3,7 +3,7 @@ import { Inter, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/header'
 import { Wrapper } from '@/components/wrapper'
-import { Toast } from '@heroui/react'
+import { Providers } from '@/shared/providers/providers'
 
 const sans = Inter({
 	variable: '--font-sans',
@@ -28,15 +28,16 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`${sans.variable} ${mono.variable} antialiased dark`}
-			// className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
+			suppressHydrationWarning
+			className={`${sans.variable} ${mono.variable} antialiased`}
 		>
 			<body className="flex flex-col min-h-svh w-full">
-				<Header />
-				<main className="flex flex-col flex-1 py-6">
-					<Wrapper>{children}</Wrapper>
-				</main>
-				<Toast.Provider />
+				<Providers>
+					<Header />
+					<main className="flex flex-col flex-1 py-6">
+						<Wrapper>{children}</Wrapper>
+					</main>
+				</Providers>
 			</body>
 		</html>
 	)

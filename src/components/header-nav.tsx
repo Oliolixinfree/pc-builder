@@ -8,11 +8,14 @@ import {
 	Description,
 	Dropdown,
 	Label,
-	Tabs
+	Tabs,
+	ToggleButton,
+	ToggleButtonGroup
 } from '@heroui/react'
-import { LogOut, UserRound } from 'lucide-react'
+import { LogOut, Monitor, Moon, Sun, UserRound } from 'lucide-react'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -23,6 +26,7 @@ type Props = {
 export function HeaderNav({ session }: Props) {
 	const pathname = usePathname()
 	const tabValue = getTabValue(pathname)
+	const { theme, setTheme } = useTheme()
 
 	const tabs = [
 		{ id: 'dashboard', label: 'Create build', href: '/dashboard' },
@@ -84,8 +88,11 @@ export function HeaderNav({ session }: Props) {
 							</Avatar.Fallback>
 						</Avatar>
 					</Dropdown.Trigger>
-					<Dropdown.Popover placement="bottom end">
-						<div className="px-2.5 pt-2.5 pb-1">
+					<Dropdown.Popover
+						placement="bottom end"
+						className="p-2"
+					>
+						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-2">
 								<Avatar
 									size="sm"
@@ -105,8 +112,40 @@ export function HeaderNav({ session }: Props) {
 									<Description>{session.user.name}</Description>
 								</div>
 							</div>
+							<ToggleButtonGroup
+								selectionMode="single"
+								size="sm"
+								fullWidth
+								selectedKeys={theme ? [theme] : []}
+								onSelectionChange={keys => {
+									const selected = Array.from(keys)[0] as string
+									if (selected) setTheme(selected)
+								}}
+							>
+								<ToggleButton
+									isIconOnly
+									aria-label="Light theme"
+									id="light"
+								>
+									<Sun />
+								</ToggleButton>
+								<ToggleButton
+									isIconOnly
+									aria-label="Dark theme"
+									id="dark"
+								>
+									<Moon />
+								</ToggleButton>
+								<ToggleButton
+									isIconOnly
+									aria-label="System theme"
+									id="system"
+								>
+									<Monitor />
+								</ToggleButton>
+							</ToggleButtonGroup>
 						</div>
-						<Dropdown.Menu>
+						<Dropdown.Menu className="p-0 mt-2">
 							<Dropdown.Item
 								id="logout"
 								textValue="Logout"
