@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Card, Description, Spinner } from '@heroui/react'
+import { Button, Card, Chip, Description, Spinner } from '@heroui/react'
 import { useEffect, useState } from 'react'
 import { getComponentsByCategory } from '../actions'
 import { Component, ComponentType } from '@prisma/generated/prisma/client'
@@ -57,17 +57,22 @@ export function DialogCardComponent({
 					variant="secondary"
 				>
 					<Card.Header>
-						<Card.Title>
-							{i.name} {i.type} {i.socket}
-						</Card.Title>
+						<Card.Title>{i.name}</Card.Title>
 						<Card.Description>
 							{new Intl.NumberFormat('en-EN').format(i.price)} $
 						</Card.Description>
 					</Card.Header>
-					<Card.Content>
-						<p>Use to draw moderate attention</p>
-					</Card.Content>
-					<Card.Footer className="justify-end">
+					<Card.Footer className="items-center justify-between">
+						{i.socket ? (
+							<Chip
+								color="accent"
+								variant="soft"
+							>
+								{i.socket}
+							</Chip>
+						) : (
+							''
+						)}
 						<Button
 							size="md"
 							onPress={() => onSelect(i)}

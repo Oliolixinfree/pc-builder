@@ -6,7 +6,7 @@ export function BuildsSkeleton() {
 			{Array.from({ length: 6 }).map((_, i) => (
 				<Skeleton
 					key={i}
-					className="h-140 rounded-3xl"
+					className="h-139 rounded-3xl"
 				/>
 			))}
 		</div>

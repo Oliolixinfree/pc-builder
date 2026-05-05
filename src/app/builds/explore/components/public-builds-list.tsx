@@ -1,5 +1,5 @@
 import { getPublicBuilds, toggleReaction } from '../actions'
-import { BuildCard } from '../../components/build-card'
+import { BuildCard } from '../../../../components/ui/build-card'
 import { ExploreCardActions } from './explore-card-actions'
 import { Blocks } from 'lucide-react'
 import { Description } from '@heroui/react'
@@ -30,6 +30,7 @@ export async function PublicBuildsList({ userId }: { userId: string }) {
 					createdAt={i.createdAt}
 					components={i.components}
 					user={i.user}
+					userLink={true}
 				>
 					<ExploreCardActions
 						buildId={i.id}

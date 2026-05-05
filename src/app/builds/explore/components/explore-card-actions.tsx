@@ -1,7 +1,8 @@
 'use client'
 
-import { Button, Spinner } from '@heroui/react'
-import { ThumbsUp } from 'lucide-react'
+import { Button, Spinner, Tooltip } from '@heroui/react'
+import { Forward, ThumbsUp } from 'lucide-react'
+import Link from 'next/link'
 import { useTransition } from 'react'
 
 type Props = {
@@ -28,24 +29,43 @@ export function ExploreCardActions({
 
 	return (
 		<>
-			<Button
-				type="button"
-				variant={isLiked ? 'secondary' : 'outline'}
-				isDisabled={isPending}
-				onPress={() => handleToggleLike()}
-			>
-				{isPending ? (
-					<Spinner
-						color="current"
-						size="sm"
-					/>
-				) : (
-					<>
-						<ThumbsUp />
-						{likesCount}
-					</>
-				)}
-			</Button>
+			<Tooltip delay={1}>
+				<Button
+					type="button"
+					variant="outline"
+					isIconOnly
+				>
+					<Link href={`/builds/${buildId}/edit`}>
+						<Forward />
+					</Link>
+				</Button>
+				<Tooltip.Content>
+					<p>Add to my builds</p>
+				</Tooltip.Content>
+			</Tooltip>
+			<Tooltip delay={1}>
+				<Button
+					type="button"
+					variant={isLiked ? 'secondary' : 'outline'}
+					isDisabled={isPending}
+					onPress={() => handleToggleLike()}
+				>
+					{isPending ? (
+						<Spinner
+							color="current"
+							size="sm"
+						/>
+					) : (
+						<>
+							<ThumbsUp />
+							{likesCount}
+						</>
+					)}
+				</Button>
+				<Tooltip.Content>
+					<p>{isLiked ? 'Dislike' : 'Like'}</p>
+				</Tooltip.Content>
+			</Tooltip>
 		</>
 	)
 }

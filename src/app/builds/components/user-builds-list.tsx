@@ -1,5 +1,5 @@
 import { getUserBuilds, deleteBuildAction } from '../actions'
-import { BuildCard } from './build-card'
+import { BuildCard } from '../../../components/ui/build-card'
 import { BuildCardActions } from './build-card-actions'
 import { Blocks } from 'lucide-react'
 import { Description } from '@heroui/react'
@@ -32,6 +32,7 @@ export async function UserBuildsList({ userId }: { userId: string }) {
 					<BuildCardActions
 						buildId={i.id}
 						isPublic={i.isPublic}
+						buildName={i.name}
 						deleteAction={deleteBuildAction}
 					/>
 				</BuildCard>

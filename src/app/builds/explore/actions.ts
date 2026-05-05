@@ -9,7 +9,7 @@ export async function getPublicBuilds(userId: string) {
 		where: { isPublic: true },
 		orderBy: { createdAt: 'desc' },
 		include: {
-			user: { select: { email: true, name: true } },
+			user: { select: { email: true, name: true, id: true } },
 			components: {
 				include: {
 					component: {
@@ -17,7 +17,8 @@ export async function getPublicBuilds(userId: string) {
 							id: true,
 							name: true,
 							type: true,
-							price: true
+							price: true,
+							socket: true
 						}
 					}
 				}

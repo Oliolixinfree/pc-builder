@@ -79,7 +79,8 @@ export async function getUserBuilds(userId: string) {
 							id: true,
 							name: true,
 							type: true,
-							price: true
+							price: true,
+							socket: true
 						}
 					}
 				}

@@ -1,19 +1,19 @@
 'use client'
 
 import { TypographyH3 } from '@/components/typography'
-import { SquarePen, BadgePlus } from 'lucide-react'
-import { Button, Description, Modal, Table, Tooltip } from '@heroui/react'
+import { Button, Modal } from '@heroui/react'
 import { Component } from '@prisma/generated/prisma/client'
 import { useCallback, useState } from 'react'
 import { DialogCardComponent } from './dialog-card-component'
 import { SaveBuildDialog } from './save-build-dialog'
 import { iconMap } from '@/shared/helpers/icon-map'
+import { BuildTable } from '@/components/ui/build-table'
 
 type Props = {
-	components: (Pick<Component, 'type' | 'name'> & { icon: string })[]
+	componentCategories: Pick<Component, 'type' | 'name'>[]
 }
 
-export function CurrentBuild({ components }: Props) {
+export function CurrentBuild({ componentCategories }: Props) {
 	const [selectedByCategory, setSelectedByCategory] = useState<
 		Record<string, Component | null>
 	>({})
@@ -32,7 +32,16 @@ export function CurrentBuild({ components }: Props) {
 		[]
 	)
 
-	const currentCategory = components.find(c => c.type === openCategoryId)
+	const handleReset = () => {
+		setSelectedByCategory(
+			Object.fromEntries(componentCategories.map(c => [c.type, null]))
+		)
+		setOpenCategoryId(null)
+	}
+
+	const currentCategory = componentCategories.find(
+		c => c.type === openCategoryId
+	)
 	const ModalIcon = currentCategory ? iconMap[currentCategory.type] : null
 
 	return (
@@ -41,87 +50,15 @@ export function CurrentBuild({ components }: Props) {
 				<TypographyH3>Create your own build</TypographyH3>
 			</div>
 			<div>
-				<Table>
-					<Table.ScrollContainer>
-						<Table.Content aria-label="Build components">
-							<Table.Header>
-								<Table.Column
-									isRowHeader
-									className="w-10"
-								>
-									Component
-								</Table.Column>
-								<Table.Column>Type</Table.Column>
-								<Table.Column>Model</Table.Column>
-								<Table.Column>Price</Table.Column>
-								<Table.Column className="w-12">Action</Table.Column>
-							</Table.Header>
-							<Table.Body>
-								{components.map(category => {
-									const Icon = iconMap[category.type]
-									const selected = selectedByCategory[category.type]
+				<BuildTable
+					components={componentCategories}
+					selectedByCategory={selectedByCategory}
+					totalPrice={totalPrice}
+					onOpenCategory={setOpenCategoryId}
+					onReset={handleReset}
+					onCollect={() => setIsSaveDialogOpen(true)}
+				/>
 
-									return (
-										<Table.Row key={category.type}>
-											<Table.Cell>
-												<Icon />
-											</Table.Cell>
-											<Table.Cell>{category.name}</Table.Cell>
-											<Table.Cell>{selected?.name ?? <>&mdash;</>}</Table.Cell>
-											<Table.Cell>
-												{selected?.price ? (
-													<>
-														{new Intl.NumberFormat('en-EN').format(
-															selected?.price
-														)}{' '}
-														$
-													</>
-												) : (
-													<>&mdash;</>
-												)}
-											</Table.Cell>
-											<Table.Cell>
-												<Tooltip delay={1}>
-													<Button
-														isIconOnly
-														variant="secondary"
-														onPress={() => setOpenCategoryId(category.type)}
-													>
-														{selected ? <SquarePen /> : <BadgePlus />}
-													</Button>
-													<Tooltip.Content>
-														{selected ? 'Change component' : 'Add component'}
-													</Tooltip.Content>
-												</Tooltip>
-											</Table.Cell>
-										</Table.Row>
-									)
-								})}
-							</Table.Body>
-						</Table.Content>
-					</Table.ScrollContainer>
-					<Table.Footer className="justify-between">
-						<p>
-							<Description className="text-sm">Total price:</Description>{' '}
-							{new Intl.NumberFormat('en-EN').format(totalPrice)} $
-						</p>
-
-						<div className="space-x-4">
-							<Button
-								variant="danger-soft"
-								onPress={() => {
-									setSelectedByCategory(
-										Object.fromEntries(components.map(c => [c.type, null]))
-									)
-									setOpenCategoryId(null)
-								}}
-							>
-								Reset
-							</Button>
-							<Button onPress={() => setIsSaveDialogOpen(true)}>Collect</Button>
-						</div>
-					</Table.Footer>
-				</Table>
 				<SaveBuildDialog
 					open={isSaveDialogOpen}
 					onOpenChange={setIsSaveDialogOpen}

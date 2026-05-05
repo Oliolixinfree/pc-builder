@@ -1,11 +1,22 @@
 import { iconMap } from '@/shared/helpers/icon-map'
-import { Card, Chip, Description, Header, Label, ListBox } from '@heroui/react'
+import {
+	Card,
+	Chip,
+	Description,
+	Header,
+	Label,
+	ListBox,
+	Link as HeroLink
+} from '@heroui/react'
+import { linkVariants } from '@heroui/styles'
 import { Build, Component, User } from '@prisma/generated/prisma/client'
 import { Banknote, CalendarPlus } from 'lucide-react'
+import Link from 'next/link'
 
 type Props = Pick<Build, 'name' | 'totalPrice' | 'createdAt'> & {
-	user: Pick<User, 'email' | 'name'>
-	components: { component: Pick<Component, 'id' | 'name' | 'type' | 'price'> }[]
+	user: Partial<Pick<User, 'id'>> & Pick<User, 'email' | 'name'>
+	components: { component: Omit<Component, 'createdAt' | 'updatedAt'> }[]
+	userLink?: boolean
 	children?: React.ReactNode
 }
 
@@ -15,17 +26,31 @@ export function BuildCard({
 	createdAt,
 	user,
 	components,
+	userLink,
 	children
 }: Props) {
+	const slots = linkVariants()
+
 	return (
 		<Card variant="default">
 			<Card.Header>
 				<Card.Title>{name}</Card.Title>
 				<Card.Description>
-					Created by: {user.name?.trim() ?? user.email.trim()}
+					Created by:{' '}
+					{userLink ? (
+						<Link
+							href={`/users/${user.id}`}
+							className={slots.base()}
+						>
+							{user.name?.trim() ?? user.email.trim()}
+							<HeroLink.Icon className={slots.icon()} />
+						</Link>
+					) : (
+						(user.name?.trim() ?? user.email.trim())
+					)}
 				</Card.Description>
 			</Card.Header>
-			<Card.Content>
+			<Card.Content className="min-h-105">
 				<ListBox
 					aria-label="Components"
 					selectionMode="none"
@@ -47,7 +72,8 @@ export function BuildCard({
 									<div className="flex flex-col">
 										<Label>{component.name}</Label>
 										<Description>
-											{component.type} &middot;{' '}
+											{component.type} ·{' '}
+											{component.socket ? `${component.socket} · ` : ''}
 											{new Intl.NumberFormat('en-EN').format(component.price)} $
 										</Description>
 									</div>
@@ -65,10 +91,7 @@ export function BuildCard({
 						color="default"
 						variant="secondary"
 					>
-						<Banknote
-							// color="current"
-							width={18}
-						/>
+						<Banknote width={18} />
 						<Chip.Label>
 							<Description className="text-sm">
 								{new Intl.NumberFormat('en-EN').format(totalPrice)} $
@@ -87,7 +110,7 @@ export function BuildCard({
 						</Chip.Label>
 					</Chip>
 				</div>
-				<div className="space-x-2">{children}</div>
+				<div className="flex items-center gap-2">{children}</div>
 			</Card.Footer>
 		</Card>
 	)
