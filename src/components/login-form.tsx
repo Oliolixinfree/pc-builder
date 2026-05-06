@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { linkVariants } from '@heroui/styles'
 import { useActionState, useState } from 'react'
 import { LoginState } from '@/shared/types/auth.type'
-import { loginAction } from '@/app/login/actions'
+import { loginAction } from '@/app/(public)/login/actions'
 import { Eye, EyeClosed, KeyRound, Mail } from 'lucide-react'
 
 export function LoginForm() {
@@ -86,21 +86,12 @@ export function LoginForm() {
 					{state?.message && <p className="text-danger">{state?.message}</p>}
 				</Card.Content>
 				<Card.Footer className="mt-4 flex flex-col gap-2">
-					{/* <Button
-						className="w-full"
-						type="submit"
-					>
-						Login
-					</Button> */}
 					<Button
 						type="submit"
 						variant="primary"
 						className="w-full"
 						isPending={isPending}
 					>
-						{/* {({ isPending }) => (
-												
-											)} */}
 						<>
 							{isPending && (
 								<Spinner

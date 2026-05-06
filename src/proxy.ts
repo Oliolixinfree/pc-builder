@@ -4,15 +4,20 @@ import { isPublicPath } from './shared/helpers/path.helper'
 export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl
 
-	if (isPublicPath(pathname)) {
-		return NextResponse.next()
-	}
-
 	const sessionCookie =
 		request.cookies.get('authjs.session-token') ??
 		request.cookies.get('__Secure-authjs.session-token')
 
-	if (!sessionCookie?.value) {
+	const isLoggedIn = !!sessionCookie?.value
+
+	if (isPublicPath(pathname)) {
+		if (isLoggedIn) {
+			return NextResponse.redirect(new URL('/dashboard', request.url))
+		}
+		return NextResponse.next()
+	}
+
+	if (!isLoggedIn) {
 		return NextResponse.redirect(new URL('/login', request.url))
 	}
 

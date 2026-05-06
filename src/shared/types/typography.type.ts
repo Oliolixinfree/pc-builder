@@ -1,1 +1,1 @@
-export type TypographyProps = { children: React.ReactNode }
+export type TypographyProps = { children: React.ReactNode; className?: string }

@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/header'
-import { Wrapper } from '@/components/wrapper'
 import { Providers } from '@/shared/providers/providers'
 
 const sans = Inter({
@@ -32,12 +30,7 @@ export default function RootLayout({
 			className={`${sans.variable} ${mono.variable} antialiased`}
 		>
 			<body className="flex flex-col min-h-svh w-full">
-				<Providers>
-					<Header />
-					<main className="flex flex-col flex-1 py-6">
-						<Wrapper>{children}</Wrapper>
-					</main>
-				</Providers>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)

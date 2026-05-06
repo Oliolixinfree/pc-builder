@@ -1,9 +1,14 @@
 import { Skeleton } from '@heroui/react'
 
-export function BuildsSkeleton() {
+type Props = {
+	quantity: number
+	className: string
+}
+
+export function BuildsSkeleton({ quantity, className }: Props) {
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-			{Array.from({ length: 6 }).map((_, i) => (
+		<div className={`${className}`}>
+			{Array.from({ length: quantity }).map((_, i) => (
 				<Skeleton
 					key={i}
 					className="h-139 rounded-3xl"

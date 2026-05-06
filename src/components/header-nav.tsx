@@ -37,8 +37,16 @@ export function HeaderNav({ session }: Props) {
 	if (!session?.user) {
 		return (
 			<div className="flex justify-end">
-				<Button variant="secondary">
-					<Link href={'/login'}>Login</Link>
+				<Button
+					variant="secondary"
+					className="p-0"
+				>
+					<Link
+						href={'/login'}
+						className="flex w-full h-full items-center justify-center px-4"
+					>
+						Login
+					</Link>
 				</Button>
 			</div>
 		)

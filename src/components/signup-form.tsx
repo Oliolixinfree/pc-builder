@@ -15,7 +15,7 @@ import {
 import Link from 'next/link'
 import { linkVariants } from '@heroui/styles'
 import { useActionState, useState } from 'react'
-import { signUpAction } from '@/app/signup/actions'
+import { signUpAction } from '@/app/(public)/signup/actions'
 import { SignUpState } from '@/shared/types/auth.type'
 import { EMAIL_REGEX, MIN_PASSWORD_LENGTH } from '@/shared/constants/validation'
 import { Eye, EyeClosed, KeyRound, Mail, UserRound } from 'lucide-react'
