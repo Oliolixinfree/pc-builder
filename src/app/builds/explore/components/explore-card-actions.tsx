@@ -35,7 +35,10 @@ export function ExploreCardActions({
 					variant="outline"
 					isIconOnly
 				>
-					<Link href={`/builds/${buildId}/edit`}>
+					<Link
+						href={`/builds/${buildId}/edit`}
+						className="flex w-full h-full items-center justify-center"
+					>
 						<Forward />
 					</Link>
 				</Button>

@@ -51,7 +51,6 @@ export function BuildCardActions({
 					variant="danger"
 					isDisabled={isEditPending || isDeletePending || isVisibilityPending}
 					onPress={() => setIsDeleteDialogOpen(true)}
-					// onPress={() => handleDelete()}
 				>
 					{isDeletePending ? (
 						<Spinner

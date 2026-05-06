@@ -27,6 +27,7 @@ export async function UserBuildsList({ userId }: { userId: string }) {
 					totalPrice={i.totalPrice}
 					createdAt={i.createdAt}
 					components={i.components}
+					userId={i.userId}
 					user={i.user}
 				>
 					<BuildCardActions

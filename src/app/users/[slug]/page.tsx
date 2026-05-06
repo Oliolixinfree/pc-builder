@@ -1,24 +1,26 @@
 import { BuildCard } from '@/components/ui/build-card'
 import { auth } from '@/auth'
 import { TypographyH3 } from '@/components/typography'
-import { Button, Separator } from '@heroui/react'
+import { Chip, Separator } from '@heroui/react'
 import { ThumbsUp } from 'lucide-react'
 import { notFound, redirect } from 'next/navigation'
-import { getUserWithBuilds } from './actions'
 import { UserInfo } from './components/user-info'
+import { getUser, getUserPublicBuilds } from './actions'
 
-type Props = {
+export default async function Page({
+	params
+}: {
 	params: Promise<{ slug: string }>
-}
-
-export default async function Page({ params }: Props) {
+}) {
 	const session = await auth()
 	if (!session?.user.id) redirect('/login')
 
 	const { slug } = await params
 
-	const user = await getUserWithBuilds(slug)
+	const user = await getUser(slug)
 	if (!user) notFound()
+
+	const builds = await getUserPublicBuilds(slug)
 
 	return (
 		<div className="flex flex-col-reverse lg:grid grid-cols-[2fr_auto_1fr] gap-4 ">
@@ -27,23 +29,24 @@ export default async function Page({ params }: Props) {
 					<TypographyH3>User&apos;s builds</TypographyH3>
 				</div>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-					{user.builds.map(i => (
+					{builds.map(i => (
 						<BuildCard
 							key={i.id}
 							name={i.name}
 							totalPrice={i.totalPrice}
 							createdAt={i.createdAt}
 							components={i.components}
+							userId={i.userId}
 							user={user}
 						>
-							<Button
-								type="button"
-								variant="outline"
-								isDisabled={true}
+							<Chip
+								color="accent"
+								variant="secondary"
+								size="lg"
 							>
-								<ThumbsUp />
-								{i._count.likes}
-							</Button>
+								<ThumbsUp width={18} />
+								<Chip.Label>{i._count.likes}</Chip.Label>
+							</Chip>
 						</BuildCard>
 					))}
 				</div>
@@ -66,7 +69,7 @@ export default async function Page({ params }: Props) {
 					name={user.name}
 					email={user.email}
 					createdAt={user.createdAt}
-					buildsCount={user.builds.length}
+					buildsCount={builds.length}
 				/>
 			</aside>
 		</div>

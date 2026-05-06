@@ -29,6 +29,7 @@ export async function PublicBuildsList({ userId }: { userId: string }) {
 					totalPrice={i.totalPrice}
 					createdAt={i.createdAt}
 					components={i.components}
+					userId={i.userId}
 					user={i.user}
 					userLink={true}
 				>

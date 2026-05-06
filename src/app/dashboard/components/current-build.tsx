@@ -46,7 +46,7 @@ export function CurrentBuild({ componentCategories }: Props) {
 
 	return (
 		<>
-			<div className="flex justify-between mb-6">
+			<div className="mb-6">
 				<TypographyH3>Create your own build</TypographyH3>
 			</div>
 			<div>

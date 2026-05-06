@@ -1,21 +1,21 @@
-import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { getBuildToEdit } from './actions'
 import { EditBuildForm } from './components/edit-build-form'
 import { COMPONENT_CATEGORIES } from '@/shared/constants/component-category'
+import { auth } from '@/auth'
 
-type Props = {
+export default async function Page({
+	params
+}: {
 	params: Promise<{ slug: string }>
-}
-
-export default async function Page({ params }: Props) {
+}) {
 	const session = await auth()
 	if (!session?.user.id) redirect('/login')
 
 	const { slug } = await params
 
 	const build = await getBuildToEdit(slug)
-	if (!build) return
+	if (!build) notFound()
 
 	const buildComponents = build.components.map(i => ({
 		id: i.component.id,

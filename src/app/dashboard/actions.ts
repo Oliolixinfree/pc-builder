@@ -134,3 +134,23 @@ export async function getComponentsByCategory(
 		return []
 	}
 }
+
+export async function getPopularBuild(limit: number = 3) {
+	return prisma.build.findMany({
+		where: {
+			isPublic: true,
+			likes: { some: {} }
+		},
+		orderBy: { likes: { _count: 'desc' } },
+		take: limit,
+		include: {
+			_count: { select: { likes: true } },
+			user: {
+				select: {
+					email: true,
+					name: true
+				}
+			}
+		}
+	})
+}

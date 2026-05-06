@@ -78,12 +78,12 @@ export function BuildTable({
 					</Table.Body>
 				</Table.Content>
 			</Table.ScrollContainer>
-			<Table.Footer className="justify-between">
+			<Table.Footer className="flex-wrap justify-between gap-2">
 				<p>
 					<Description className="text-sm">Total price:</Description>{' '}
 					{new Intl.NumberFormat('en-EN').format(totalPrice)} $
 				</p>
-				<div className="space-x-4">
+				<div className="space-x-2">
 					<Button
 						variant="danger-soft"
 						onPress={onReset}

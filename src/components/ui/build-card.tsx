@@ -13,8 +13,8 @@ import { Build, Component, User } from '@prisma/generated/prisma/client'
 import { Banknote, CalendarPlus } from 'lucide-react'
 import Link from 'next/link'
 
-type Props = Pick<Build, 'name' | 'totalPrice' | 'createdAt'> & {
-	user: Partial<Pick<User, 'id'>> & Pick<User, 'email' | 'name'>
+type Props = Pick<Build, 'name' | 'totalPrice' | 'createdAt' | 'userId'> & {
+	user: Pick<User, 'email' | 'name'>
 	components: { component: Omit<Component, 'createdAt' | 'updatedAt'> }[]
 	userLink?: boolean
 	children?: React.ReactNode
@@ -24,6 +24,7 @@ export function BuildCard({
 	name,
 	totalPrice,
 	createdAt,
+	userId,
 	user,
 	components,
 	userLink,
@@ -39,7 +40,7 @@ export function BuildCard({
 					Created by:{' '}
 					{userLink ? (
 						<Link
-							href={`/users/${user.id}`}
+							href={`/users/${userId}`}
 							className={slots.base()}
 						>
 							{user.name?.trim() ?? user.email.trim()}
@@ -65,6 +66,7 @@ export function BuildCard({
 									key={component.id}
 									id={component.id}
 									textValue={component.name}
+									className="pr-2"
 								>
 									<div className="flex h-8 items-start justify-center pt-px">
 										<Icon className="shrink-0 text-muted" />
@@ -85,17 +87,15 @@ export function BuildCard({
 					</ListBox.Section>
 				</ListBox>
 			</Card.Content>
-			<Card.Footer className="justify-between">
-				<div className="space-x-2">
+			<Card.Footer className="flex-col items-start sm:items-end sm:flex-row justify-between gap-2">
+				<div className="flex flex-wrap items-center gap-2">
 					<Chip
 						color="default"
 						variant="secondary"
 					>
 						<Banknote width={18} />
 						<Chip.Label>
-							<Description className="text-sm">
-								{new Intl.NumberFormat('en-EN').format(totalPrice)} $
-							</Description>
+							{new Intl.NumberFormat('en-EN').format(totalPrice)} $
 						</Chip.Label>
 					</Chip>
 					<Chip
@@ -103,11 +103,7 @@ export function BuildCard({
 						variant="secondary"
 					>
 						<CalendarPlus width={16} />
-						<Chip.Label>
-							<Description className="text-sm">
-								{new Date(createdAt).toLocaleDateString()}
-							</Description>
-						</Chip.Label>
+						<Chip.Label>{new Date(createdAt).toLocaleDateString()}</Chip.Label>
 					</Chip>
 				</div>
 				<div className="flex items-center gap-2">{children}</div>
