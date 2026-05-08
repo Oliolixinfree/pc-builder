@@ -3,6 +3,27 @@ import { getBuildToEdit } from './actions'
 import { EditBuildForm } from './components/edit-build-form'
 import { COMPONENT_CATEGORIES } from '@/shared/constants/component-category'
 import { auth } from '@/auth'
+import { Metadata } from 'next'
+
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+	const { slug } = await params
+	const build = await getBuildToEdit(slug)
+
+	if (!build) {
+		return {
+			title: 'Build not found'
+		}
+	}
+
+	return {
+		title: `Editing: ${build.name}`,
+		description: `Edit components for build "${build.name}"`
+	}
+}
 
 export default async function Page({
 	params

@@ -1,7 +1,7 @@
 'use client'
 
 import { AlertDialog, Button, Spinner, Tooltip } from '@heroui/react'
-import { Eye, EyeClosed, Pencil, Trash2 } from 'lucide-react'
+import { Eye, EyeClosed, Trash2 } from 'lucide-react'
 import { useState, useTransition } from 'react'
 import { toggleBuildPublicAction } from '../actions'
 
@@ -20,7 +20,7 @@ export function BuildCardActions({
 }: Props) {
 	const [isDeletePending, startDeleteTransition] = useTransition()
 	const [isVisibilityPending, startVisibilityTransition] = useTransition()
-	const [isEditPending, startEditTransition] = useTransition()
+	// const [isEditPending, startEditTransition] = useTransition()
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
 	const handleDelete = () => {
@@ -31,9 +31,7 @@ export function BuildCardActions({
 		setIsDeleteDialogOpen(false)
 	}
 
-	const handleEdit = () => {
-		// startEditTransition(() => void)
-	}
+	// const handleEdit = () => {}
 
 	const handleToggleVisibility = () => {
 		const fd = new FormData()
@@ -48,8 +46,8 @@ export function BuildCardActions({
 				<Button
 					isIconOnly
 					type="button"
-					variant="danger"
-					isDisabled={isEditPending || isDeletePending || isVisibilityPending}
+					variant="danger-soft"
+					isDisabled={isDeletePending || isVisibilityPending}
 					onPress={() => setIsDeleteDialogOpen(true)}
 				>
 					{isDeletePending ? (
@@ -103,12 +101,13 @@ export function BuildCardActions({
 					</AlertDialog.Dialog>
 				</AlertDialog.Container>
 			</AlertDialog.Backdrop>
-			<Tooltip delay={1}>
+
+			{/* <Tooltip delay={1}>
 				<Button
 					isIconOnly
 					variant="outline"
 					isDisabled={isEditPending || isDeletePending || isVisibilityPending}
-					onPress={() => handleEdit()}
+					onPress={() => {}}
 				>
 					{isEditPending ? (
 						<Spinner
@@ -122,12 +121,12 @@ export function BuildCardActions({
 				<Tooltip.Content>
 					<p>Change build</p>
 				</Tooltip.Content>
-			</Tooltip>
+			</Tooltip> */}
 			<Tooltip delay={1}>
 				<Button
 					isIconOnly
 					variant="outline"
-					isDisabled={isEditPending || isDeletePending || isVisibilityPending}
+					isDisabled={isDeletePending || isVisibilityPending}
 					onPress={() => handleToggleVisibility()}
 				>
 					{isVisibilityPending ? (

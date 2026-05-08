@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import Link from 'next/link'
 import { TypographyH3 } from './typography'
-import { HeaderNav } from './header-nav'
+import { HeaderNav } from './navigation/header-nav'
 
 export async function Header() {
 	const session = await auth()

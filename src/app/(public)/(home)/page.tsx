@@ -1,6 +1,12 @@
 import { TypographyH1 } from '@/components/typography'
 import { Button } from '@heroui/react'
+import { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+	title: 'PC Builder',
+	description: 'Build your dream build'
+}
 
 export default function Home() {
 	return (

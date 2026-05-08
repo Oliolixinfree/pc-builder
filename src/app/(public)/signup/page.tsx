@@ -1,6 +1,12 @@
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { SignupForm } from '@/components/signup-form'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Sign updatedAt',
+	description: 'Create an account'
+}
 
 export default async function Page() {
 	const session = await auth()

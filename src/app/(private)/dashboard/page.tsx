@@ -3,6 +3,12 @@ import { CurrentBuild } from './components/current-build'
 import { TypographyH3 } from '@/components/typography'
 import { PopularBuildsList } from './components/popular-builds-list'
 import { Separator } from '@heroui/react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Dashboard',
+	description: 'Create your own build'
+}
 
 export default function Page() {
 	return (

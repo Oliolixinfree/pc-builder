@@ -7,6 +7,25 @@ import { getUser } from './actions'
 import { Suspense } from 'react'
 import { ProfileBuildsList } from './components/profile-builds-list'
 import { BuildsSkeleton } from '@/components/builds-skeleton'
+import { Metadata } from 'next'
+
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+	const { slug } = await params
+	const user = await getUser(slug)
+
+	if (!user) {
+		return { title: 'User not found' }
+	}
+
+	return {
+		title: `${user.name}'s profile`,
+		description: `${user.name}'s builds and info`
+	}
+}
 
 export default async function Page({
 	params
@@ -25,7 +44,7 @@ export default async function Page({
 		<div className="flex flex-1 flex-col-reverse lg:grid grid-cols-[2fr_auto_1fr] gap-4 ">
 			<section>
 				<div className="mb-6">
-					<TypographyH3>User&apos;s builds</TypographyH3>
+					<TypographyH3>{user.name ?? 'User'}&apos;s builds</TypographyH3>
 				</div>
 				<Suspense
 					fallback={

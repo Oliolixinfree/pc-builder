@@ -4,6 +4,12 @@ import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
 import { BuildsSkeleton } from '@/components/builds-skeleton'
 import { UserBuildsList } from './components/user-builds-list'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'My builds',
+	description: 'My builds'
+}
 
 export default async function Page() {
 	const session = await auth()

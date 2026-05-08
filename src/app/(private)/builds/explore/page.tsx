@@ -4,6 +4,12 @@ import { PublicBuildsList } from './components/public-builds-list'
 import { BuildsSkeleton } from '@/components/builds-skeleton'
 import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Public builds',
+	description: 'Explore public builds'
+}
 
 export default async function Page() {
 	const session = await auth()
