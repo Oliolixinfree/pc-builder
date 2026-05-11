@@ -4,6 +4,7 @@ import { EditBuildForm } from './components/edit-build-form'
 import { COMPONENT_CATEGORIES } from '@/shared/constants/component-category'
 import { auth } from '@/auth'
 import { Metadata } from 'next'
+import { PAGES } from '@/shared/constants/page-config'
 
 export async function generateMetadata({
 	params
@@ -31,7 +32,7 @@ export default async function Page({
 	params: Promise<{ slug: string }>
 }) {
 	const session = await auth()
-	if (!session?.user.id) redirect('/login')
+	if (!session?.user.id) redirect(PAGES.LOGIN)
 
 	const { slug } = await params
 

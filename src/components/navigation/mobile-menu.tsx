@@ -17,6 +17,7 @@ import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { ThemeSwitcher } from '../theme-switcher'
+import { PAGES } from '@/shared/constants/page-config'
 
 export function MobileMenu({ session }: { session: Session }) {
 	const state = useOverlayState()
@@ -127,7 +128,7 @@ export function MobileMenu({ session }: { session: Session }) {
 											id="logout"
 											textValue="Logout"
 											variant="danger"
-											onPress={() => signOut({ redirectTo: '/' })}
+											onPress={() => signOut({ redirectTo: PAGES.HOME })}
 										>
 											<div className="flex w-full items-center justify-between gap-2">
 												<Label>Log Out</Label>

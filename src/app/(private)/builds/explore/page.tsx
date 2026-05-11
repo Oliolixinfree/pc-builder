@@ -5,6 +5,7 @@ import { BuildsSkeleton } from '@/components/builds-skeleton'
 import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { Metadata } from 'next'
+import { PAGES } from '@/shared/constants/page-config'
 
 export const metadata: Metadata = {
 	title: 'Public builds',
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
 	const session = await auth()
-	if (!session?.user.id) redirect('/login')
+	if (!session?.user.id) redirect(PAGES.LOGIN)
 
 	return (
 		<>

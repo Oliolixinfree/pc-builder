@@ -8,6 +8,7 @@ import { Suspense } from 'react'
 import { ProfileBuildsList } from './components/profile-builds-list'
 import { BuildsSkeleton } from '@/components/builds-skeleton'
 import { Metadata } from 'next'
+import { PAGES } from '@/shared/constants/page-config'
 
 export async function generateMetadata({
 	params
@@ -33,7 +34,7 @@ export default async function Page({
 	params: Promise<{ slug: string }>
 }) {
 	const session = await auth()
-	if (!session?.user.id) redirect('/login')
+	if (!session?.user.id) redirect(PAGES.LOGIN)
 
 	const { slug } = await params
 

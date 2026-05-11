@@ -1,6 +1,7 @@
 'use server'
 
 import { auth } from '@/auth'
+import { PAGES } from '@/shared/constants/page-config'
 import { prisma } from '@/shared/lib/prisma/db'
 import { revalidatePath } from 'next/cache'
 
@@ -27,8 +28,8 @@ export async function toggleBuildPublicAction(formData: FormData) {
 			data: { isPublic: !build.isPublic }
 		})
 
-		revalidatePath('/builds')
-		revalidatePath('/builds/explore')
+		revalidatePath(PAGES.BUILDS)
+		revalidatePath(PAGES.EXPLORE)
 	} catch (error) {
 		console.error(error)
 		throw new Error('Failed to toggle build visibility')
@@ -58,8 +59,8 @@ export async function deleteBuildAction(formData: FormData) {
 			throw new Error('Delete failed: build not found or no permission')
 		}
 
-		revalidatePath('/builds')
-		revalidatePath('/builds/explore')
+		revalidatePath(PAGES.BUILDS)
+		revalidatePath(PAGES.EXPLORE)
 	} catch (error) {
 		console.error(error)
 		throw new Error('Failed to delete build')

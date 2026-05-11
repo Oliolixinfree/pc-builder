@@ -1,3 +1,4 @@
+import { PAGES } from '@/shared/constants/page-config'
 import {
 	Button,
 	Card,
@@ -36,7 +37,7 @@ export function PopularBuildCard({
 				<Card.Description>
 					Created by:{' '}
 					<Link
-						href={`/users/${userId}`}
+						href={PAGES.USER(userId)}
 						className={slots.base()}
 					>
 						{user.name?.trim() ?? user.email.trim()}
@@ -79,7 +80,7 @@ export function PopularBuildCard({
 							isIconOnly
 						>
 							<Link
-								href={`/builds/${id}/edit`}
+								href={PAGES.BUILD(id)}
 								className="flex w-full h-full items-center justify-center"
 							>
 								<Forward />

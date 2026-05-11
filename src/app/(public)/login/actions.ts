@@ -1,6 +1,7 @@
 'use server'
 
 import { signIn } from '@/auth'
+import { PAGES } from '@/shared/constants/page-config'
 import { LoginSchema } from '@/shared/schemas/auth.schema'
 import { LoginState } from '@/shared/types/auth.type'
 import { AuthError } from 'next-auth'
@@ -29,10 +30,10 @@ export async function loginAction(
 		await signIn('credentials', {
 			email,
 			password,
-			redirectTo: '/dashboard'
+			redirectTo: PAGES.DASHBOARD
 		})
 
-		redirect('dashboard')
+		redirect(PAGES.DASHBOARD)
 	} catch (e) {
 		console.error(e)
 		if (e instanceof AuthError) {

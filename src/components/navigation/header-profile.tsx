@@ -6,6 +6,7 @@ import { LogOut, UserRound } from 'lucide-react'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import { ThemeSwitcher } from '../theme-switcher'
+import { PAGES } from '@/shared/constants/page-config'
 
 export function HeaderProfile({ session }: { session: Session }) {
 	return (
@@ -56,7 +57,7 @@ export function HeaderProfile({ session }: { session: Session }) {
 						id="logout"
 						textValue="Logout"
 						variant="danger"
-						onPress={() => signOut({ redirectTo: '/' })}
+						onPress={() => signOut({ redirectTo: PAGES.HOME })}
 					>
 						<div className="flex w-full items-center justify-between gap-2">
 							<Label>Log Out</Label>

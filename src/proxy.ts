@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isPublicPath } from './shared/helpers/path.helper'
+import { PAGES } from './shared/constants/page-config'
 
 export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl
@@ -12,13 +13,13 @@ export function proxy(request: NextRequest) {
 
 	if (isPublicPath(pathname)) {
 		if (isLoggedIn) {
-			return NextResponse.redirect(new URL('/dashboard', request.url))
+			return NextResponse.redirect(new URL(PAGES.DASHBOARD, request.url))
 		}
 		return NextResponse.next()
 	}
 
 	if (!isLoggedIn) {
-		return NextResponse.redirect(new URL('/login', request.url))
+		return NextResponse.redirect(new URL(PAGES.LOGIN, request.url))
 	}
 
 	return NextResponse.next()

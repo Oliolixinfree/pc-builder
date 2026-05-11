@@ -2,6 +2,7 @@ import { auth } from '@/auth'
 import Link from 'next/link'
 import { TypographyH3 } from './typography'
 import { HeaderNav } from './navigation/header-nav'
+import { PAGES } from '@/shared/constants/page-config'
 
 export async function Header() {
 	const session = await auth()
@@ -10,7 +11,7 @@ export async function Header() {
 		<div className="flex items-center min-h-10">
 			<div className="shrink-0">
 				<TypographyH3>
-					<Link href={session?.user ? '/dashboard' : '/'}>
+					<Link href={session?.user ? PAGES.DASHBOARD : PAGES.HOME}>
 						<span className="text-accent">PC</span> Builder
 					</Link>
 				</TypographyH3>

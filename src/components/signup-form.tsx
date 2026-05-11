@@ -19,6 +19,7 @@ import { signUpAction } from '@/app/(public)/signup/actions'
 import { SignUpState } from '@/shared/types/auth.type'
 import { EMAIL_REGEX, MIN_PASSWORD_LENGTH } from '@/shared/constants/validation'
 import { Eye, EyeClosed, KeyRound, Mail, UserRound } from 'lucide-react'
+import { PAGES } from '@/shared/constants/page-config'
 
 export function SignupForm() {
 	const slots = linkVariants()
@@ -142,7 +143,7 @@ export function SignupForm() {
 					<Description className="text-sm">
 						Already have an account?{' '}
 						<Link
-							href={'/login'}
+							href={PAGES.LOGIN}
 							className={slots.base()}
 						>
 							Sign in

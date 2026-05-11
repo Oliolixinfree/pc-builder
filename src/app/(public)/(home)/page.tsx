@@ -1,4 +1,5 @@
 import { TypographyH1 } from '@/components/typography'
+import { PAGES } from '@/shared/constants/page-config'
 import { Button } from '@heroui/react'
 import { Metadata } from 'next'
 import Link from 'next/link'
@@ -23,7 +24,7 @@ export default function Home() {
 						className="p-0"
 					>
 						<Link
-							href={'/dashboard'}
+							href={PAGES.DASHBOARD}
 							className="flex w-full h-full items-center justify-center px-4"
 						>
 							Get started

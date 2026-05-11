@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { prisma } from './shared/lib/prisma/db'
 import bcrypt from 'bcryptjs'
+import { PAGES } from './shared/constants/page-config'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
 	providers: [
@@ -58,7 +59,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 	],
 	session: { strategy: 'jwt' },
 	pages: {
-		signIn: '/login'
+		signIn: PAGES.LOGIN
 	},
 	callbacks: {
 		jwt({ token, user }) {

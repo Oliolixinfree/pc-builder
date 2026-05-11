@@ -1,6 +1,7 @@
 'use server'
 
 import { auth } from '@/auth'
+import { PAGES } from '@/shared/constants/page-config'
 import { prisma } from '@/shared/lib/prisma/db'
 import { revalidatePath } from 'next/cache'
 
@@ -66,9 +67,9 @@ export async function toggleReaction(formData: FormData) {
 			})
 		}
 
-		revalidatePath('/builds')
-		revalidatePath('/builds/explore')
-		revalidatePath('/dashboard')
+		revalidatePath(PAGES.BUILDS)
+		revalidatePath(PAGES.EXPLORE)
+		revalidatePath(PAGES.DASHBOARD)
 	} catch (error) {
 		console.error(error)
 		throw new Error('Failed to toggle reaction')

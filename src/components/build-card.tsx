@@ -1,3 +1,4 @@
+import { PAGES } from '@/shared/constants/page-config'
 import { iconMap } from '@/shared/helpers/icon-map'
 import {
 	Card,
@@ -40,7 +41,7 @@ export function BuildCard({
 					Created by:{' '}
 					{userLink ? (
 						<Link
-							href={`/users/${userId}`}
+							href={PAGES.USER(userId)}
 							className={slots.base()}
 						>
 							{user.name?.trim() ?? user.email.trim()}

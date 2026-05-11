@@ -1,5 +1,6 @@
 'use client'
 
+import { PAGES } from '@/shared/constants/page-config'
 import { Button, Spinner, Tooltip } from '@heroui/react'
 import { Forward, ThumbsUp } from 'lucide-react'
 import Link from 'next/link'
@@ -36,7 +37,7 @@ export function ExploreCardActions({
 					isIconOnly
 				>
 					<Link
-						href={`/builds/${buildId}/edit`}
+						href={PAGES.BUILD(buildId)}
 						className="flex w-full h-full items-center justify-center"
 					>
 						<Forward />

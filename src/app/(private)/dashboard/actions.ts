@@ -1,6 +1,7 @@
 'use server'
 
 import { auth } from '@/auth'
+import { PAGES } from '@/shared/constants/page-config'
 import { prisma } from '@/shared/lib/prisma/db'
 import { Component, ComponentType } from '@prisma/generated/prisma/client'
 import { revalidatePath } from 'next/cache'
@@ -95,8 +96,8 @@ export async function saveBuild(
 			return newBuild
 		})
 
-		revalidatePath('/dashboard')
-		revalidatePath('/builds')
+		revalidatePath(PAGES.DASHBOARD)
+		revalidatePath(PAGES.BUILDS)
 
 		return { success: true, buildId: build.id }
 	} catch (error) {

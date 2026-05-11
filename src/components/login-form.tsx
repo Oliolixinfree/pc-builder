@@ -18,6 +18,7 @@ import { useActionState, useState } from 'react'
 import { LoginState } from '@/shared/types/auth.type'
 import { loginAction } from '@/app/(public)/login/actions'
 import { Eye, EyeClosed, KeyRound, Mail } from 'lucide-react'
+import { PAGES } from '@/shared/constants/page-config'
 
 export function LoginForm() {
 	const slots = linkVariants()
@@ -105,7 +106,7 @@ export function LoginForm() {
 					<Description className="text-sm">
 						Don&apos;t have an account?{' '}
 						<Link
-							href={'/signup'}
+							href={PAGES.SIGNUP}
 							className={slots.base()}
 						>
 							Sign Up

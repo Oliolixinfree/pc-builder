@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/shared/lib/prisma/db'
 import { SignUpState } from '@/shared/types/auth.type'
 import { SignUpSchema } from '@/shared/schemas/auth.schema'
+import { PAGES } from '@/shared/constants/page-config'
 
 export async function signUpAction(
 	_prevState: SignUpState | null,
@@ -48,5 +49,5 @@ export async function signUpAction(
 		return { message: 'Something went wrong during registration.' }
 	}
 
-	redirect('/login')
+	redirect(PAGES.LOGIN)
 }

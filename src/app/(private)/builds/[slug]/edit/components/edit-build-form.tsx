@@ -8,6 +8,7 @@ import { iconMap } from '@/shared/helpers/icon-map'
 import { Button, Modal } from '@heroui/react'
 import { Component } from '@prisma/generated/prisma/client'
 import { useCallback, useState } from 'react'
+import { PAGES } from '@/shared/constants/page-config'
 
 type Props = {
 	buildName: string
@@ -75,7 +76,7 @@ export function EditBuildForm({
 				onOpenChange={setSaveDialogOpen}
 				selectedByCategory={selectedByCategory}
 				defaultName={buildName}
-				redirectPath="/builds"
+				redirectPath={PAGES.BUILDS}
 			/>
 
 			{currentCategory && (
